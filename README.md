@@ -36,14 +36,10 @@ Stop with `Ctrl+C` for graceful shutdown.
 - `src/cache.cpp` — thread-safe LRU cache sized by bytes.
 - `src/stats.cpp` — tracks total requests, avg latency, cache hit rate, simple RPS.
 
-## Testing Checklist
-
-- Serve simple HTML: `curl http://localhost:8080/`
-- 404 handling: `curl -i http://localhost:8080/missing`
-- Concurrent hits: `ab -n 1000 -c 50 http://localhost:8080/`
-- Binary files: place an image in `www/` and request it.
-- Argument parsing: vary `-t`, `-p`, `-r`, `-c`.
-
 ## Load Testing Note
 
-For the report: run `ab -n 10000 -c 100 http://localhost:8080/` for thread counts 1, 2, 4, 8, 16; capture throughput/latency, include cache hit rate, and attach charts + Valgrind leak check.
+you can run script run_bench.sh with this setup
+
+bash run_benchsh [number of users] [number of concurrent requests] [url] [--noLRU/--auto]
+
+auto runs both with and without LRU
