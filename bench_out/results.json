@@ -1,0 +1,102 @@
+[
+  {
+    "threads": 1,
+    "n": 10000,
+    "c": 200,
+    "cache": "on",
+    "rps": 160.79,
+    "time_per_req_ms": 1243.89,
+    "transfer_rate_kBps": 579329.7,
+    "failed_requests": 0
+  },
+  {
+    "threads": 1,
+    "n": 10000,
+    "c": 200,
+    "cache": "off",
+    "rps": 145.64,
+    "time_per_req_ms": 1373.245,
+    "transfer_rate_kBps": 524758.75,
+    "failed_requests": 0
+  },
+  {
+    "threads": 2,
+    "n": 10000,
+    "c": 200,
+    "cache": "on",
+    "rps": 446.8,
+    "time_per_req_ms": 447.625,
+    "transfer_rate_kBps": 1609881.27,
+    "failed_requests": 0
+  },
+  {
+    "threads": 2,
+    "n": 10000,
+    "c": 200,
+    "cache": "off",
+    "rps": 253.44,
+    "time_per_req_ms": 789.131,
+    "transfer_rate_kBps": 913184.9,
+    "failed_requests": 0
+  },
+  {
+    "threads": 4,
+    "n": 10000,
+    "c": 200,
+    "cache": "on",
+    "rps": 475.07,
+    "time_per_req_ms": 420.989,
+    "transfer_rate_kBps": 1711735.24,
+    "failed_requests": 0
+  },
+  {
+    "threads": 4,
+    "n": 10000,
+    "c": 200,
+    "cache": "off",
+    "rps": 302.93,
+    "time_per_req_ms": 660.214,
+    "transfer_rate_kBps": 1091497.81,
+    "failed_requests": 0
+  },
+  {
+    "threads": 8,
+    "n": 10000,
+    "c": 200,
+    "cache": "on",
+    "rps": 439.77,
+    "time_per_req_ms": 454.782,
+    "transfer_rate_kBps": 1584544.82,
+    "failed_requests": 0
+  },
+  {
+    "threads": 8,
+    "n": 10000,
+    "c": 200,
+    "cache": "off",
+    "rps": 359.92,
+    "time_per_req_ms": 555.687,
+    "transfer_rate_kBps": 1296814.77,
+    "failed_requests": 0
+  },
+  {
+    "threads": 16,
+    "n": 10000,
+    "c": 200,
+    "cache": "on",
+    "rps": 419.64,
+    "time_per_req_ms": 476.596,
+    "transfer_rate_kBps": 1512019.53,
+    "failed_requests": 0
+  },
+  {
+    "threads": 16,
+    "n": 10000,
+    "c": 200,
+    "cache": "off",
+    "rps": 340.76,
+    "time_per_req_ms": 586.926,
+    "transfer_rate_kBps": 1227790.75,
+    "failed_requests": 0
+  }
+]
