@@ -39,7 +39,8 @@ Stop with `Ctrl+C` for graceful shutdown.
 ## Load Testing Note
 
 you can run script run_bench.sh with this setup
-
+```bash
 bash run_benchsh [number of users] [number of concurrent requests] [url] [--noLRU/--auto]
+```
 
 auto runs both with and without LRU
