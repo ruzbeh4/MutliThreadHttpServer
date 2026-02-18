@@ -42,3 +42,8 @@
 
 #logs 
 *.log
+
+#plots
+*.png
+
+.idea/

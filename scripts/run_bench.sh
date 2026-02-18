@@ -9,6 +9,7 @@ PORT=${PORT:-8080}
 ROOT=${ROOT:-www}
 BINARY=${BINARY:-./webserver}
 OUT_DIR=${OUT_DIR:-bench_out}
+LOG_DIR="${OUT_DIR}/logs"
 NO_LRU=${NO_LRU:-0}
 AUTO=${AUTO:-1}
 
@@ -37,12 +38,12 @@ done
 
 TARGET_URL=${URL_INPUT}
 
-mkdir -p "${OUT_DIR}"
+mkdir -p "${OUT_DIR}" "${LOG_DIR}"
 
 # Build the server
 make
 
-results_tsv="${OUT_DIR}/results.tsv"
+results_tsv="${LOG_DIR}/results.tsv"
 echo -e "threads\tn\tc\tcache\trps\ttime_per_req_ms\ttransfer_rate_kBps\tfailed_requests" > "${results_tsv}"
 
 cleanup() {
@@ -64,11 +65,11 @@ run_suite() {
   for T in ${THREADS}; do
     echo "Running threads=${T} n=${N} c=${C} url=${TARGET_URL} cache=${cache_label}"
     SERVER_ARGS=("-p" "${PORT}" "-t" "${T}" "-r" "${ROOT}" "${no_lru_arg[@]}")
-    "${BINARY}" "${SERVER_ARGS[@]}" > "${OUT_DIR}/server_${T}_${cache_label}.log" 2>&1 &
+    "${BINARY}" "${SERVER_ARGS[@]}" > "${LOG_DIR}/server_${T}_${cache_label}.log" 2>&1 &
     SERVER_PID=$!
     sleep 1
 
-    ab_log="${OUT_DIR}/ab_${T}_${cache_label}.log"
+    ab_log="${LOG_DIR}/ab_${T}_${cache_label}.log"
     if ! ab -n "${N}" -c "${C}" "${TARGET_URL}" > "${ab_log}" 2>&1; then
       echo "ab failed for threads=${T} cache=${cache_label}, see ${ab_log}" >&2
       cleanup
