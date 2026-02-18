@@ -21,28 +21,23 @@ bool Server::setupSocket() {
         std::perror("socket");
         return false;
     }
-
     int opt = 1;
     if (setsockopt(listen_fd_, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0) {
         std::perror("setsockopt");
         return false;
     }
-
     sockaddr_in addr{};
     addr.sin_family = AF_INET;
     addr.sin_addr.s_addr = htonl(INADDR_ANY);
     addr.sin_port = htons(port_);
-
     if (bind(listen_fd_, reinterpret_cast<sockaddr*>(&addr), sizeof(addr)) < 0) {
         std::perror("bind");
         return false;
     }
-
     if (listen(listen_fd_, SOMAXCONN) < 0) {
         std::perror("listen");
         return false;
     }
-
     return true;
 }
 

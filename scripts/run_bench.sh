@@ -16,7 +16,7 @@ AUTO=${AUTO:-1}
 DEFAULT_URL="http://127.0.0.1:${PORT}/"
 URL_INPUT=${3:-"${DEFAULT_URL}"}
 
-# Parse additional args/flags for URL and cache mode.
+
 for arg in "$@"; do
   case "${arg}" in
     --noLRU|--no-cache)
@@ -81,7 +81,6 @@ run_suite() {
 
     rps=$(grep "Requests per second" "${ab_log}" | awk '{print $4}')
     tpr=$(grep -m1 "Time per request" "${ab_log}" | awk '{print $4}')
-    # ab prints: "Transfer rate: 12345.67 [Kbytes/sec] received"; the 3rd field is the number.
     xfer=$(grep "Transfer rate" "${ab_log}" | awk '{print $3}')
     failed=$(grep "Failed requests" "${ab_log}" | awk '{print $3}')
 
