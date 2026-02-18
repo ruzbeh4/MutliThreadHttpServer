@@ -38,9 +38,13 @@ Stop with `Ctrl+C` for graceful shutdown.
 
 ## Load Testing Note
 
-you can run script run_bench.sh with this setup
+Use `scripts/run_bench.sh` to benchmark with ApacheBench:
+
 ```bash
-bash run_benchsh [number of users] [number of concurrent requests] [url] [--noLRU/--auto]
+bash scripts/run_bench.sh [N] [C] [URL] [--auto|--noLRU|--cache-only]
 ```
 
-auto runs both with and without LRU
+- `N` total requests (default `1000`), `C` concurrency (default `50`), `URL` defaults to `http://127.0.0.1:$PORT/`.
+- Flags: `--auto` (default, run with cache on then off), `--noLRU`/`--no-cache` (cache off only), `--cache-only` (cache on only).
+- what is does: runs for `THREADS="1 2 4 8 16"`, `PORT=8080`, `ROOT=www`, `BINARY=./webserver`, `OUT_DIR=bench_out` (logs/results in `bench_out/logs`).
+- Outputs: `results.tsv` + logs in `bench_out/logs`; plots/JSON in `bench_out/`.
