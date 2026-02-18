@@ -54,6 +54,11 @@ void HttpHandler::handleClient(int client_fd) {
         close(client_fd);
     };
 
+    if (request.empty() || request.size() > 8192) {
+        sendAndClose(buildResponse(400, "text/plain", "Bad Request"));
+        return;
+    }
+
     size_t line_end = request.find("\r\n");
     if (line_end == std::string::npos) {
         sendAndClose(buildResponse(400, "text/plain", "Bad Request"));
@@ -64,9 +69,29 @@ void HttpHandler::handleClient(int client_fd) {
     std::string method, path, version;
     iss >> method >> path >> version;
 
+    if (method.empty() || path.empty() || version.empty() || iss.fail()) {
+        sendAndClose(buildResponse(400, "text/plain", "Bad Request"));
+        return;
+    }
+
     if (method != "GET") {
         sendAndClose(buildResponse(400, "text/plain", "Only GET supported"));
         return;
+    }
+
+    if (path.compare(0, 7, "http://") == 0 || path.compare(0, 8, "https://") == 0) {
+        size_t scheme_end = path.find("//");
+        size_t after_host = (scheme_end == std::string::npos) ? std::string::npos : path.find('/', scheme_end + 2);
+        path = (after_host == std::string::npos) ? "/" : path.substr(after_host);
+    }
+
+    size_t query_pos = path.find('?');
+    if (query_pos != std::string::npos) {
+        path = path.substr(0, query_pos);
+    }
+    size_t frag_pos = path.find('#');
+    if (frag_pos != std::string::npos) {
+        path = path.substr(0, frag_pos);
     }
 
     if (path.empty() || path[0] != '/' || !isPathSafe(path)) {
